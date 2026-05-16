@@ -36,7 +36,7 @@ public class DefaultProducerController {
     @ApiOperation("同步发送普通消息")
     @GetMapping("/sync-ordinary")
     public SendResult sendOrdinaryMessageSynchronously() throws MQBrokerException, RemotingException, InterruptedException, MQClientException {
-        Message message = new Message((RocketMQConstant.TOPIC_PREFIX + "client"), "sync", "send ordinary message synchronously".getBytes(StandardCharsets.UTF_8));
+        Message message = new Message((RocketMQConstant.TOPIC_PREFIX + "client"), "sync", "ordinary message key", "send ordinary message synchronously".getBytes(StandardCharsets.UTF_8));
         SendResult sendResult = this.defaultMQProducer.send(message);
         log.info("消息发送状态: {}", sendResult);
         return sendResult;

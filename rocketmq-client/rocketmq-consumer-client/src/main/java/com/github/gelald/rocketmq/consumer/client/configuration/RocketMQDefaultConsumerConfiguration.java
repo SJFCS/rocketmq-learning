@@ -22,12 +22,10 @@ public class RocketMQDefaultConsumerConfiguration extends RocketMQBaseConsumerCo
      */
     @Bean
     public DefaultMQPushConsumer defaultMQPushConsumer(MessageListenerConcurrently defaultListener) throws MQClientException {
-        // 创建消息消费者
-        DefaultMQPushConsumer defaultMQPushConsumer = new DefaultMQPushConsumer();
+        // 创建消息消费者，设置消费者组的同时开启消息轨迹
+        DefaultMQPushConsumer defaultMQPushConsumer = new DefaultMQPushConsumer((RocketMQConstant.CONSUMER_GROUP_PREFIX + "client"), true);
         // 设置消费者NameServer地址，用于寻找Broker
         defaultMQPushConsumer.setNamesrvAddr(rocketMQConsumerProperties.getNameServerAddr());
-        // 设置消费者组
-        defaultMQPushConsumer.setConsumerGroup((RocketMQConstant.CONSUMER_GROUP_PREFIX + "client"));
         // 设置消费者组订阅的Topic等信息
         defaultMQPushConsumer.subscribe((RocketMQConstant.TOPIC_PREFIX + "client"), "*");
         // 设置消费者消息监听器
