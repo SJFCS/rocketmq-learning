@@ -9,6 +9,7 @@ import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.TransactionSendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
+import org.apache.rocketmq.spring.support.RocketMQHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
@@ -34,7 +35,8 @@ public class RocketMQProducerController {
     @ApiOperation("同步发送普通消息")
     @GetMapping("/sync-ordinary")
     public SendResult sendMessageSynchronously() {
-        Message<String> message = MessageBuilder.withPayload("send ordinary message synchronously").build();
+        Message<String> message = MessageBuilder.withPayload("send ordinary message synchronously")
+                .setHeader(RocketMQHeaders.KEYS, "sync-msg-key").build();
         log.info("生产者发送消息: {}", message);
         SendResult sendResult = this.rocketMQTemplate.syncSend((RocketMQConstant.TOPIC_PREFIX + "starter:sync"), message);
         log.info("消息发送状态: {}", sendResult);

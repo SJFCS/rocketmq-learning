@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class RocketMQConsumerStarterApplication {
     public static void main(String[] args) {
+        // 让 RocketMQ Client 使用 SLF4J 输出日志，避免 Netty 初始化时的 appender 警告
+        System.setProperty("rocketmq.client.logUseSlf4j", "true");
         SpringApplication.run(RocketMQConsumerStarterApplication.class, args);
     }
 }

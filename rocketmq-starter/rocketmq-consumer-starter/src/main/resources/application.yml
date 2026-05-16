@@ -11,6 +11,9 @@ spring:
 
 rocketmq:
   name-server: localhost:9876
+  # consumer 下的配置是不生效的!
+  # 因为消费者是通过@RocketMQMessageListener注解驱动的
+  # 由它来创建每一个独立的消费者，绝大部分配置都在注解上操作，仅有极少量不常用的配置可以全局设置
 
 learning:
   rocketmq:

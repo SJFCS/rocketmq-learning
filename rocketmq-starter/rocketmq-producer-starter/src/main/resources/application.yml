@@ -20,6 +20,8 @@ rocketmq:
     retry-times-when-send-failed: 3
     # 异步发送消息失败重试次数，默认2
     retry-times-when-send-async-failed: 3
+    # 开启消息轨迹，默认的轨迹topic是RMQ_SYS_TRACE_TOPIC
+    enable-msg-trace: true
 
 base:
   swagger-package: com.github.gelald.rocketmq.producer.starter

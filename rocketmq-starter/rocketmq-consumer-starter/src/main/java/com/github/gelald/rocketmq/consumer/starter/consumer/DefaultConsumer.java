@@ -17,14 +17,16 @@ import java.nio.charset.StandardCharsets;
 @Component
 @RocketMQMessageListener(
         consumerGroup = (RocketMQConstant.CONSUMER_GROUP_PREFIX + "starter"),
-        topic = (RocketMQConstant.TOPIC_PREFIX + "starter")
+        topic = (RocketMQConstant.TOPIC_PREFIX + "starter"),
+        enableMsgTrace = true
 )
 public class DefaultConsumer implements RocketMQListener<MessageExt> {
     @Override
     public void onMessage(MessageExt messageExt) {
         String topic = messageExt.getTopic();
         String tags = messageExt.getTags();
+        String keys = messageExt.getKeys();
         String body = new String(messageExt.getBody(), StandardCharsets.UTF_8);
-        log.info("DefaultConsumer接收消息, topic: {}, tags: {}, 消息内容: {}", topic, tags, body);
+        log.info("DefaultConsumer接收消息, topic: {}, tags: {}, keys: {}, 消息内容: {}", topic, tags, keys, body);
     }
 }
